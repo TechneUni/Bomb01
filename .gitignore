@@ -1,0 +1,8 @@
+# The project repository contains a lot of files that nobody needs.
+# This file tells Git to not track them, because nobody needs them.
+
+# Python's compilation files that nobody needs
+__pycache__
+
+# VSCode's settings that nobody needs
+.vscode
