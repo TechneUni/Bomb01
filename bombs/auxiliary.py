@@ -69,3 +69,25 @@ def mcuCoffeeMakerGoFlag(groundsMass, waterHeat, cupPlaced):
     """
 
     return False
+
+
+def hailstoneBalancing(n):
+    """
+    AFFECTED MODULE: Hailstone-based Agile Load Balancer
+
+    One of our load balancers for tasks at work uses some computational magic to
+    balance loads based on the Hailstone sequence. I'll omit how that actually
+    happens... But it's a pretty cool algorithm.
+
+    The Hailstone sequence is as follows:
+    1. Get an input number.
+    2. If the number is even, divide it by 2.
+    3. If the number is odd, multiply it by 3 and add 1.
+    4. Repeat until the number is 1.
+
+    Simply put, we need to count the number of steps until the number reaches 1.
+    The current system is broken, so we're hoping you can create a workaround.
+    Interested?
+    """
+
+    return 0

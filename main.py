@@ -3,10 +3,13 @@ import time  # Used for time.sleep() function which just waits for some time
 
 # Importing the bomb files to test them
 from bombs.auxiliary import (airConditioningVentilationChecker,
-                             mcuCoffeeMakerGoFlag, waterBottleStation)
+                             hailstoneBalancing, mcuCoffeeMakerGoFlag,
+                             waterBottleStation)
 from bombs.critical import (cryptographicCircleChecker, errorLogLevelChecker,
-                            ncHashDerive, parityChecker, passChannel,
-                            swapChannel, vIOFlag)
+                            ncHashDerive, nthFibComputer, parityChecker,
+                            passChannel, saltBranchingGenerator,
+                            signatureChecker, signatureSum, swapChannel,
+                            vIOFlag)
 
 # ===== Helper =================================================================
 
@@ -103,6 +106,60 @@ def checkCriticalLocks():
         "Checking cryptographic circle checker (2)..."
     )
 
+    # saltBranchingGenerator lock
+    locksChecked = locksChecked and checkLock(
+        saltBranchingGenerator(2) == ncHashDerive(2, 32),
+        "Checking salt branching generator (1)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        saltBranchingGenerator(3) == ncHashDerive(3, 23),
+        "Checking salt branching generator (2)..."
+    )
+
+    # signatureChecker lock
+    locksChecked = locksChecked and checkLock(
+        signatureChecker(2) == True,
+        "Checking signature checker (1)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        signatureChecker(5) == True,
+        "Checking signature checker (2)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        signatureChecker(1) == True,
+        "Checking signature checker (3)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        signatureChecker(3) == False,
+        "Checking signature checker (4)..."
+    )
+
+    # signatureSum lock
+    vals = [i for i in range(100) if signatureChecker(i)]
+    locksChecked = locksChecked and checkLock(
+        signatureSum(100) == sum(vals),
+        "Checking signature sum..."
+    )
+
+    # nthFibComputer lock
+    def fib(n): return n if n <= 1 else fib(n-1) + fib(n-2)
+    locksChecked = locksChecked and checkLock(
+        nthFibComputer(0) == fib(0),
+        "Checking nth Fibonacci computer (1)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        nthFibComputer(1) == fib(1),
+        "Checking nth Fibonacci computer (2)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        nthFibComputer(2) == fib(2),
+        "Checking nth Fibonacci computer (3)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        nthFibComputer(23) == fib(23),
+        "Checking nth Fibonacci computer (4)..."
+    )
+
     if locksChecked:
         print("All critical locks are OK")
     else:
@@ -151,6 +208,29 @@ def checkAuxiliaryLocks():
         mcuCoffeeMakerGoFlag(453.592, 100, False) == (
             gToLbs(453.592) > 0.25) and (cToF(100) > 102) and True,
         "Checking MCU coffee maker go flag (2)..."
+    )
+
+    # hailstoneBalancing lock
+    def hailstone(x):
+        i = 0
+        while x != 1:
+            if x % 2 == 0:
+                x /= 2
+            else:
+                x = 3 * x + 1
+            i += 1
+        return i
+    locksChecked = locksChecked and checkLock(
+        hailstoneBalancing(27) == hailstone(27),
+        "Checking hailstone balancing (1)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        hailstoneBalancing(100) == hailstone(100),
+        "Checking hailstone balancing (2)..."
+    )
+    locksChecked = locksChecked and checkLock(
+        hailstoneBalancing(7) == hailstone(7),
+        "Checking hailstone balancing (3)..."
     )
 
     if locksChecked:

@@ -115,3 +115,78 @@ def cryptographicCircleChecker(volume):
     """
 
     return 0
+
+
+def saltBranchingGenerator(a):
+    """
+    AFFECTED MODULE: Cryptographic Salt Generator
+
+    The cryptographic salt generator creates a 'salt' value to append onto
+    passwords and other sensitive data. This is used to prevent rainbow table
+    attacks. The salt is generated based on the input value.
+
+    If the input value is even, the salt is generated using ncHashDerive with a
+    and b=32. If the input value is odd, the salt is generated using
+    ncHashDerive with a and b=23.
+
+    The salt generator is currently not returning anything. Bypass this lock by
+    recomputing the formulas manually.
+    """
+
+    pass
+
+
+def signatureChecker(num):
+    """
+    AFFECTED MODULE: Signature checker
+
+    Cryptographic signatures are used to validate that a team member is using a
+    resource. After the signature has been condensed into a number, the
+    following algorithm is used to check validity of the signature:
+
+    1. If the number is even, the signature is valid.
+    2. If the number is not divisible by 3 but is odd, the signature is valid.
+    3. If the number equals itself squared, the signature is valid.
+    4. Otherwise, the signature is invalid.
+
+    The signature checker is currently validating all signatures, allowing
+    further hacker entry into the system. Fix this checker by returning the
+    correct values (True if the signature is valid, False if it is not).
+    """
+
+    return True
+
+
+def signatureSum(num):
+    """
+    AFFECTED MODULE: Signature sum
+
+    Signature checks are done in redundant fashion. The signature sum module
+    sums all values from 0 to num that pass the signatureChecker. This sum is
+    returned and used for later processing.
+
+    The signature sum module is currently not returning anything. Fix this by 
+    recomputing the sum manually.
+    """
+
+    return 0
+
+
+def nthFibComputer(n):
+    """
+    AFFECTED MODULE: Nth Fibonacci Compute Submodule
+
+    The Fibonacci sequence is a sequence that appears in nature, so naturally,
+    it has to be included in our security system. We compute the nth number of
+    the sequence for use in other calculations.
+
+    For some value n, the nth Fibonacci number f(n) is computed as follows:
+    f(0) = 0
+    f(1) = 1
+    f(n) = f(n-1) + f(n-2)
+
+    The nth Fibonacci compute submodule is currently not returning anything. Fix
+    it.
+    """
+
+    return 0
