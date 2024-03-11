@@ -177,11 +177,11 @@ def checkAuxiliaryLocks():
     def xPos(a, b, c): return (-b + math.sqrt(b**2 - 4*a*c)) / (2*a)
     def xNeg(a, b, c): return (-b - math.sqrt(b**2 - 4*a*c)) / (2*a)
     locksChecked = locksChecked and checkLock(
-        waterBottleStation(1, 2, 3) == (xPos(1, 2, 3), xNeg(1, 2, 3)),
+        waterBottleStation(1, 2, -3) == (xPos(1, 2, -3), xNeg(1, 2, -3)),
         "Checking water bottle station (1)..."
     )
     locksChecked = locksChecked and checkLock(
-        waterBottleStation(4, 5, 6) == (xPos(4, 5, 6), xNeg(4, 5, 6)),
+        waterBottleStation(4, 5, -6) == (xPos(4, 5, -6), xNeg(4, 5, -6)),
         "Checking water bottle station (2)..."
     )
 
